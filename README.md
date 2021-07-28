@@ -21,13 +21,13 @@ the release 2021.04 can be run using this implementation.
 * Clone all OPM modules from https://github.com/daavid00, check out the
 "wettability" branch, and build all opm modules, specially 'wa' from opm-models
 and 'flow' from opm-simulators (see/run the bash file).
-    ./buildopm.bash
+`./buildopm.bash`
 * Edit line 23 of the python scripts (fig*.py) with the full path to the 'flow'
 and 'wa' executable respectively.
 
 ## Running the scripts
 * From the terminal, e.g., for fig7:
-    python3 fig7.py
+`python3 fig7.py`
 
 ## Paper
 * [A] Kassa, A.M., Gasda, S.E., Landa-Marbán, D., Sandve, T.H., Kumar, K., 2021.
