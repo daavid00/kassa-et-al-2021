@@ -100,8 +100,8 @@ for j in range(N):
 
 #Create variables used in the simulations
 bash = ['1']*(ii*2)
-bashi = ['1']*(ii*2)
-bashd = ['1']*(ii*2)
+bashi = ['1']*ii
+bashd = ['1']*ii
 Oki = [0]*ii
 Okd = [0]*ii
 Ca = [0]*ii
@@ -122,9 +122,8 @@ def krni(Sw,E):
     return (1-Sw)/(1-Sw+E*Sw**Lambdaa)
 
 #Delete previous simulation files
-os.system('rm vtk-* & wait')
-os.system('rm WACASEI-* & wait')
-os.system('rm WACASED-* & wait')
+os.system('rm -r vtk & wait')
+os.system('rm -r WACASES & wait')
 
 #Read the input file
 a_file = open("WACASE.DATA", "r")
@@ -150,6 +149,8 @@ list_of_lines[138] = "'PROD01' %d 1 1 1 'OPEN' 1* 1*/\n" % nx
 list_of_lines[163] = "%d*%f /\n" % (int(T/dt),dt)
 
 #Set the different simulations
+os.system('mkdir vtk & wait')
+os.system('mkdir WACASES & wait')
 for i in range(ii):
     list_of_lines[61] = "%d*%f /\n" % (nx,H[i][2])
     list_of_lines[64] = "%d*%f /\n" % (nx,(H[i][1]/(milli*darcy)))
@@ -157,16 +158,15 @@ for i in range(ii):
     list_of_lines[70] = "%d*%f /\n" % (nx,(H[i][1]/(milli*darcy)))
     list_of_lines[147] = "'INJE01' 'WATER' 'OPEN' 'RATE' %E  1* 1E8 /\n" % (H[i][0]*day)
     list_of_lines[157] = "'INJE01' 'OIL' 'OPEN' 'RATE' %E  1* 1E8 /\n" % (H[i][0]*day)
-    a_file = open("WACASEI-%05d.DATA" % i, "w")
+    a_file = open("WACASES/WACASEI-%05d.DATA" % i, "w")
     a_file.writelines(list_of_lines)
     a_file.close()
-    a_file = open("WACASED-%05d.DATA" % i, "w")
+    a_file = open("WACASES/WACASED-%05d.DATA" % i, "w")
     a_file.writelines(list_of_lines)
     a_file.close()
-    os.system('rm vtk-%05d/* & wait' % i)
-    os.system('mkdir vtk-%05d & wait' % i)
-    bashi[i]="%s WACASEI-%05d.DATA --output-dir=vtk-%05d --enable-vtk-output=true --enable-ecl-output=false --initial-time-step-in-days=0.0001 --solver-max-restarts=20 --solver-max-time-step-in-days=.1 --enable-wa=true --beta=%E --eta=%E --ei=%f --ef=%f --ci=%E --cf=%E --lambda=%f --llambda=%f --srw=%f" % (flowpath,i,i,1e16,0,Ei,Ei,ci,ci,lambdaa,Lambdaa,Srw)
-    bashd[i]="%s WACASED-%05d.DATA --output-dir=vtk-%05d --enable-vtk-output=true --enable-ecl-output=false --initial-time-step-in-days=0.0001 --solver-max-restarts=20 --solver-max-time-step-in-days=.1 --enable-wa=true --beta=%E --eta=%E --ei=%f --ef=%f --ci=%E --cf=%E --lambda=%f --llambda=%f --srw=%f" % (flowpath,i,i,b1*H[i][3]**b2,-n1*H[i][3]+n2,Ei,Ef,ci,cf,lambdaa,Lambdaa,Srw)
+    os.system('mkdir vtk/vtk-%05d & wait' % i)
+    bashi[i]="%s WACASES/WACASEI-%05d.DATA --output-dir=vtk/vtk-%05d --enable-vtk-output=true --enable-ecl-output=false --initial-time-step-in-days=0.0001 --solver-max-restarts=20 --solver-max-time-step-in-days=.1 --enable-wa=true --beta=%E --eta=%E --ei=%f --ef=%f --ci=%E --cf=%E --lambda=%f --llambda=%f --srw=%f" % (flowpath,i,i,1e16,0,Ei,Ei,ci,ci,lambdaa,Lambdaa,Srw)
+    bashd[i]="%s WACASES/WACASED-%05d.DATA --output-dir=vtk/vtk-%05d --enable-vtk-output=true --enable-ecl-output=false --initial-time-step-in-days=0.0001 --solver-max-restarts=20 --solver-max-time-step-in-days=.1 --enable-wa=true --beta=%E --eta=%E --ei=%f --ef=%f --ci=%E --cf=%E --lambda=%f --llambda=%f --srw=%f" % (flowpath,i,i,b1*H[i][3]**b2,-n1*H[i][3]+n2,Ei,Ef,ci,cf,lambdaa,Lambdaa,Srw)
 
 #Create the .bash file and run the simulations
 j=0
@@ -184,19 +184,19 @@ os.system('./fig5.bash')
 
 #Obtain the variables from the vtk output files
 for i in range(ii):
-    a_file = open("vtk-%05d/WACASEI-%05d.pvd" % (i,i),"r")
+    a_file = open("vtk/vtk-%05d/WACASEI-%05d.pvd" % (i,i),"r")
     list_of_lines = a_file.readlines()
     ss=list_of_lines[-3]
     Oki[i]=int(ss[-13:-8])
-    mesh = meshio.read("vtk-%05d/WACASEI-%05d-%05d.vtu" % (i,i,int(ss[-13:-8])))
+    mesh = meshio.read("vtk/vtk-%05d/WACASEI-%05d-%05d.vtu" % (i,i,int(ss[-13:-8])))
     for row in mesh.cell_data['saturation_oil']:
         sni=row
     a_file.close()
-    a_file = open("vtk-%05d/WACASED-%05d.pvd" % (i,i),"r")
+    a_file = open("vtk/vtk-%05d/WACASED-%05d.pvd" % (i,i),"r")
     list_of_lines = a_file.readlines()
     ss=list_of_lines[-3]
     Okd[i]=int(ss[-13:-8])
-    mesh = meshio.read("vtk-%05d/WACASED-%05d-%05d.vtu" % (i,i,int(ss[-13:-8])))
+    mesh = meshio.read("vtk/vtk-%05d/WACASED-%05d-%05d.vtu" % (i,i,int(ss[-13:-8])))
     for row in mesh.cell_data['saturation_oil']:
         snd=row
     a_file.close()
@@ -230,14 +230,14 @@ plt.plot(Ca[33:36], sfld[33:36], color=[0,0,1], linewidth=lw, linestyle="--", ma
 plt.plot(Ca[36:39], sfld[36:39], color=[0,0,0], linewidth=lw, linestyle="--", marker="^", label="q (C=10$^{-4}$)")
 plt.plot(Ca[39:42], sfld[39:42], color=[1,0,0], linewidth=lw, linestyle="--", marker="^", label="K (C=10$^{-4}$)")
 plt.plot(Ca[42:45], sfld[42:45], color=[0,0,1], linewidth=lw, linestyle="--", marker="^", label="$\phi$ (C=10$^{-4}$)")
-#plt.xlim([1e-6,3e-4])
-#plt.ylim([-.01,1])
+plt.xlim([1e-6,3e-4])
+plt.ylim([-.01,1])
 #plt.yticks(np.linspace(0, 1, 5))
 plt.xscale('log')
 plt.xlabel('Ca [-]')
 plt.ylabel('SFLD [-]')
 plt.grid()
 matplotlib.pyplot.grid(True, which="both")
-#plt.legend(loc='best', prop={'size': 8})
+plt.legend(loc='best', prop={'size': 8})
 plt.savefig('fig5.eps', format='eps')
 plt.show()
