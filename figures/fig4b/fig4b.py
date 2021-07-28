@@ -150,6 +150,7 @@ list_of_lines[163] = "%d*%f /\n" % (int(T/dt),dt)
 
 #Set the different simulations
 os.system('mkdir vtk & wait')
+os.system('mkdir WACASES & wait')
 for i in range(ii):
     list_of_lines[61] = "%d*%f /\n" % (nx,H[i][2])
     list_of_lines[64] = "%d*%f /\n" % (nx,(H[i][1]/(milli*darcy)))
