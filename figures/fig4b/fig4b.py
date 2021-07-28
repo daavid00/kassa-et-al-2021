@@ -165,8 +165,8 @@ for i in range(ii):
     a_file.writelines(list_of_lines)
     a_file.close()
     os.system('mkdir vtk/vtk-%05d & wait' % i)
-    bashi[i]="%s WACASES/WACASEI-%05d.DATA --output-dir=vtk/vtk-%05d --enable-vtk-output=true --enable-ecl-output=false --initial-time-step-in-days=0.0001 --solver-max-restarts=20 --solver-max-time-step-in-days=.1 --enable-wa=true --beta=%E --eta=%E --ei=%f --ef=%f --ci=%E --cf=%E --lambda=%f --llambda=%f --srw=%f" % (flowpath,i,i,1E16,0,Ei,Ei,ci,ci,lambdaa,Lambdaa,Srw)
-    bashd[i]="%s WACASES/WACASED-%05d.DATA --output-dir=vtk/vtk-%05d --enable-vtk-output=true --enable-ecl-output=false --initial-time-step-in-days=0.0001 --solver-max-restarts=20 --solver-max-time-step-in-days=.1 --enable-wa=true --beta=%E --eta=%E --ei=%f --ef=%f --ci=%E --cf=%E --lambda=%f --llambda=%f --srw=%f" % (flowpath,i,i,1E16,-n1*H[i][3]+n2,Ei,Ef,ci,ci,lambdaa,Lambdaa,Srw)
+    bashi[i]="%s WACASES/WACASEI-%05d.DATA --output-dir=vtk/vtk-%05d --enable-vtk-output=true --enable-ecl-output=false --initial-time-step-in-days=0.0001 --solver-max-restarts=20 --solver-max-time-step-in-days=.1 --enable-wa=true --beta=%E --eta=%E --ei=%f --ef=%f --ci=%E --cf=%E --lambda=%f --llambda=%f --srw=%f" % (flowpath,i,i,1E15,0,Ei,Ei,ci,ci,lambdaa,Lambdaa,Srw)
+    bashd[i]="%s WACASES/WACASED-%05d.DATA --output-dir=vtk/vtk-%05d --enable-vtk-output=true --enable-ecl-output=false --initial-time-step-in-days=0.0001 --solver-max-restarts=20 --solver-max-time-step-in-days=.1 --enable-wa=true --beta=%E --eta=%E --ei=%f --ef=%f --ci=%E --cf=%E --lambda=%f --llambda=%f --srw=%f" % (flowpath,i,i,1E15,-n1*H[i][3]+n2,Ei,Ef,ci,ci,lambdaa,Lambdaa,Srw)
 
 #Create the .bash file and run the simulations
 j=0
