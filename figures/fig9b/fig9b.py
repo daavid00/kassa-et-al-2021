@@ -20,7 +20,7 @@
 #}
 
 #Set the full path to the wa executable
-flowwa='/Users/david/github-opm/wettability/opm-models/build-cmake/bin/wa'
+flowwa='~/kassa-et-al-2021/opm-models/build-cmake/bin/wa'
 
 #Import python dependencies
 import numpy as np
@@ -117,12 +117,12 @@ Okd = [0]*(N)
 CO2 = []
 
 #Delete previous simulation files
-#os.system('rm -r vtk & wait')
+os.system('rm -r vtk & wait')
 
 #Set the different simulations
-#os.system('mkdir vtk')
+os.system('mkdir vtk')
 for i in range(N):
-    #os.system('mkdir vtk/vtk-%05d & wait' % i)
+    os.system('mkdir vtk/vtk-%05d & wait' % i)
     if (i==0):
         bashd[i]="%s --output-dir=vtk/vtk-%05d --wa-vtk-time-steps-file=writetimes.DATA --initial-time-step-size=.01 --max-time-step-size=2592000 --max-time-step-divisions=20  --end-time=%d --enable-wa=false --ci-c=%f --cf-c=%f --ci=%f --cf=%f --ei=%f --ef=%f --lambda=%f --llambda=%f --srw=%f --srn=%f --s0w=%f --x0n=%f --k-c=%E --k=%E --phi-c=%f --phi=%f --fine-layer-bottom=%f " % (flowwa,i,T*year,cfc,cfc,cia,cfa,Ef,Ef,lambdaa,Lambdaa,Srw,Srn,S0w,X0n,Kc,Ka,phic,phia,h)
     else:
@@ -139,8 +139,8 @@ bash[j]=bashd[-1]+" & wait\n"
 a_file = open("fig9b.bash", "w")
 a_file.writelines(bash)
 a_file.close()
-#os.system("chmod u+x ./fig9b.bash")
-#os.system('./fig9b.bash')
+os.system("chmod u+x ./fig9b.bash")
+os.system('./fig9b.bash')
 
 #Compute the CO2 in the caprock from the vtk output files
 mesh = meshio.read("vtk/vtk-00000/wa_ncp_ecfv-00000.vtu")

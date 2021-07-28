@@ -20,7 +20,7 @@
 #}
 
 #Set the full path to the flow executable
-flowpath='/Users/david/github-opm/wettability/opm-simulators/build-cmake/bin/flow'
+flowpath='~/kassa-et-al-2021/opm-simulators/build-cmake/bin/flow'
 
 #Import python dependencies
 import numpy as np
@@ -30,7 +30,7 @@ import matplotlib
 from matplotlib import pyplot as plt
 
 #Set the parameters for the simulations
-ci=1e3              #Initial entry pressure [Pa]
+ci=1e4              #Initial entry pressure [Pa]
 cf=1e2              #Final entry pressure [Pa]
 lambdaa=3.6         #Fitting parameter (relative permeability) [-]
 Lambdaa=1.3         #Fitting parameter (capillary pressure) [-]
@@ -40,26 +40,26 @@ rhon=716.7          #Non-wetting density [kg/m^3]
 mun=5.916e-5        #Non-wetting viscocity [Pa s]
 rhow=1050           #Wetting density [kg/m^3]
 muw=6.922e-4        #Wetting viscoscity [Pa s]
-K=1e-12             #Intrinsic permeability [m^2]
+K=1e-10             #Intrinsic permeability [m^2]
 Srw=0.2             #Residual wetting saturation [-]
-q=1e-8              #Injection rate [m^3/s]
+q=1e-7              #Injection rate [m^3/s]
 phi=0.1             #Porosity [-]
 tch=1e7             #Characterictic time [s]
 b1=1e9              #Dynamic parameter (capillary pressure) [-]
 b2=1.8              #Dynamic parameter (capillary pressure) [-]
 n1=4.999e5          #Dynamic parameter (relative permeability) [-]
 n2=50.              #Dynamic parameter (relative permeability) [-]
-nx=2000             #Number of cells [-]
-dx=10.               #Length of a grid cell [m]
+nx=500              #Number of cells [-]
+dx=2.5              #Length of a grid cell [m]
 T=365               #Total simulation time [d]
-dt=73.               #Time step to print the results [d]
+dt=73.              #Time step to print the results [d]
 
 #Set the values for the different simulations
 N=5
 M=3
 C=[1e-5,2.5e-5,5e-5,7.5e-5,1e-4]
-q=[1e-6,2e-6,4e-6]
-K=[1e-12,2e-12,4e-12]
+q=[1e-7,5e-8,2.5e-8]
+K=[1e-10,5e-11,2.5e-11]
 phi=[0.1,0.2,0.4]
 
 #Define conversion variables
@@ -142,7 +142,7 @@ for jj in range(20):
 list_of_lines[99] = "277.0  1  0.0  %E  0.0 /\n" % (muw/cp)
 list_of_lines[102] = "277.0  1  0.0  %E  0.0 /\n" % (mun/cp)
 list_of_lines[110] = "%f %f 0 /\n" % (rhon, rhow)
-list_of_lines[115] = "%d*%d /\n" % (nx,nx*1.5)
+list_of_lines[115] = "%d*%d /\n" % (nx,nx*2.)
 list_of_lines[119] = "%d*1 /\n" % nx
 list_of_lines[123] = "%d*0 /\n" % nx
 list_of_lines[133] = "'PROD01' 'PROD' %d 1 1* 'WATER' 0.15/\n" % nx
@@ -206,8 +206,6 @@ for i in range(ii):
     sfld[i]=(xin[i]-xdyn[i])/xin[i]
 
 #Check that all different simulations finished (the number of output files should be the same)
-print(xin)
-print(xdyn)
 print(Oki)
 print(Okd)
 

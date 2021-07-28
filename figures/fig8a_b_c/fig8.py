@@ -20,7 +20,7 @@
 #}
 
 #Set the full path to the wa executable
-flowwa='/Users/david/github-opm/wettability/opm-models/build-cmake/bin/wa'
+flowwa='~/kassa-et-al-2021/opm-models/build-cmake/bin/wa'
 
 #Import python dependencies
 import numpy as np
@@ -57,7 +57,7 @@ dz=1                #Size of a grid cell (z) [m]
 h=70.               #Height of the aquifer [m]
 S0w=0.5             #Initial wetting saturation (aquifer) [-]
 X0n=5e-3            #Initial co2 mole fraction (brine) [-]
-T=365.              #Total simulation time [y]
+T=100.              #Total simulation time [y]
 dt=1.               #Time step to print the results [d]
 C=5e-5              #Pore-scale parameter [-]
 
