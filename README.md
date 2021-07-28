@@ -4,7 +4,7 @@ have been successfully run in Linux and Mac OS (not tested in Windows). This
 implementation is based on the OPM release 2021.04. New scripts have been added/
 modified in opm-material, opm-models, and opm-simulators folders, corresponding
 to the 'wettability' branch. All original tests in opm-models and opm-tests from
-the release 2021.04 can be run using this implementation. The folder Tests 
+the release 2021.04 can be run using this implementation. The folder tests 
 include examples of scripts to run single simulations.
 
 ## Requirements
