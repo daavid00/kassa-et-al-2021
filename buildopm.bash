@@ -16,4 +16,3 @@ cd opm-simulators/build-cmake
 cmake ..
 make -j 5 flow
 cd ../..
-git clone https://github.com/daavid00/kassa-et-al-2021/figures.git
