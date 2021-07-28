@@ -20,7 +20,7 @@
 #}
 
 #Set the full path to the wa executable
-flowwa='/Users/david/github-opm/wettability/opm-models/build-cmake/bin/wa'
+flowwa='~/kassa-et-al-2021/opm-models/build-cmake/bin/wa'
 
 #Import python dependencies
 import numpy as np
