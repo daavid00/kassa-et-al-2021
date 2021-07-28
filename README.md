@@ -4,7 +4,8 @@ have been successfully run in Linux and Mac OS (not tested in Windows). This
 implementation is based on the OPM release 2021.04. New scripts have been added/
 modified in opm-material, opm-models, and opm-simulators folders, corresponding
 to the 'wettability' branch. All original tests in opm-models and opm-tests from
-the release 2021.04 can be run using this implementation.
+the release 2021.04 can be run using this implementation. The folder Tests 
+include examples of scripts to run single simulations.
 
 ## Requirements
 * [OPM](https://opm-project.org)
@@ -23,8 +24,8 @@ the release 2021.04 can be run using this implementation.
 and 'flow' from opm-simulators (see/run the bash file).
 
 `./buildopm.bash`
-* Edit line 23 of the python scripts (fig*.py) with the full path to the 'flow'
-and 'wa' executable respectively.
+* Edit line 23 of the python scripts with the full path to the 'flow' and 'wa' 
+executable respectively.
 
 ## Running the scripts
 * From the terminal, e.g., for fig7:
@@ -34,7 +35,6 @@ and 'wa' executable respectively.
 ## Paper
 * [A] Kassa, A.M., Gasda, S.E., Landa-Marbán, D., Sandve, T.H., Kumar, K., 2021.
 The role of time-dependent wettability alteration in geological co2 storage.
-Submitted.
 
 ## Contact
 David Landa-Marbán (dmar@norceresearch.no).
