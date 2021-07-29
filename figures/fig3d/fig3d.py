@@ -66,19 +66,11 @@ day=86400           #[s]
 atm=101325          #[Pa]
 
 #Define the cases for the static states
-N = 4
+N = 2
 P = []
 a = []
 a.append(Ei)
 a.append(ci)
-P.append(a)
-a = []
-a.append(Ef)
-a.append(ci)
-P.append(a)
-a = []
-a.append(Ei)
-a.append(cf)
 P.append(a)
 a = []
 a.append(Ef)
@@ -187,14 +179,12 @@ plt.figure(figsize=(5.5, 5.5), dpi=80)
 plt.rc('font', size=12)
 axes=plt.subplot(1, 1, 1)
 plt.plot(X, Sn[0][:], color=[1,.6,.6], linewidth=lw, linestyle="-", label="Initial-wetting k$_r$, Initial-wetting P$_c$")
-plt.plot(X, Sn[1][:], color=[.6,.9,.9], linewidth=lw, linestyle="-", label="Final-wetting k$_r$, Initial-wetting P$_c$")
-plt.plot(X, Sn[2][:], color=[.6,.9,.5], linewidth=lw, linestyle="-", label="Initial-wetting k$_r$, Final-wetting P$_c$")
-plt.plot(X, Sn[3][:], color=[.8,.8,1], linewidth=lw, linestyle="-", label="Final-wetting k$_r$, Final-wetting P$_c$")
-plt.plot(X, Sn[4][:], color=[0,0,0], linewidth=lw, linestyle=":", label=r"Dynamic k$_r$ P$_c$ (C=10$^{-5}$)")
-plt.plot(X, Sn[5][:], color=[1,.5,0], linewidth=lw, linestyle="--", label=r"Dynamic k$_r$ P$_c$ (C=2.5$\times 10^{-5}$)")
-plt.plot(X, Sn[6][:], color=[1,.5,.9], linewidth=lw, linestyle=":", label=r"Dynamic k$_r$ P$_c$ (C=5$\times 10^{-5}$)")
-plt.plot(X, Sn[7][:], color=[.61,.61,.61], linewidth=lw, linestyle="--", label=r"Dynamic k$_r$ P$_c$ (C=7.5$\times 10^{-5}$)")
-plt.plot(X, Sn[8][:], color=[0,.4,0], linewidth=lw, linestyle=":", label=r"Dynamic k$_r$ P$_c$ (C=10$^{-4}$)")
+plt.plot(X, Sn[1][:], color=[.8,.8,1], linewidth=lw, linestyle="-", label="Final-wetting k$_r$, Final-wetting P$_c$")
+plt.plot(X, Sn[2][:], color=[0,0,0], linewidth=lw, linestyle=":", label=r"Dynamic k$_r$ P$_c$ (C=10$^{-5}$)")
+plt.plot(X, Sn[3][:], color=[1,.5,0], linewidth=lw, linestyle="--", label=r"Dynamic k$_r$ P$_c$ (C=2.5$\times 10^{-5}$)")
+plt.plot(X, Sn[4][:], color=[1,.5,.9], linewidth=lw, linestyle=":", label=r"Dynamic k$_r$ P$_c$ (C=5$\times 10^{-5}$)")
+plt.plot(X, Sn[5][:], color=[.61,.61,.61], linewidth=lw, linestyle="--", label=r"Dynamic k$_r$ P$_c$ (C=7.5$\times 10^{-5}$)")
+plt.plot(X, Sn[6][:], color=[0,.4,0], linewidth=lw, linestyle=":", label=r"Dynamic k$_r$ P$_c$ (C=10$^{-4}$)")
 plt.xlim([0,L])
 plt.ylim([0,0.425])
 plt.xlabel('x [m]')
