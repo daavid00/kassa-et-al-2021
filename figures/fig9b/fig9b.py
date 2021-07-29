@@ -113,7 +113,7 @@ N = len(P) + 1
 #Create variables used in the simulations
 bash = ['1']*N
 bashd = ['1']*N
-Okd = [0]*(N)
+Okd = [0]*N
 CO2 = []
 
 #Delete previous simulation files
@@ -124,7 +124,7 @@ os.system('mkdir vtk')
 for i in range(N):
     os.system('mkdir vtk/vtk-%05d & wait' % i)
     if (i==0):
-        bashd[i]="%s --output-dir=vtk/vtk-%05d --wa-vtk-time-steps-file=writetimes.DATA --initial-time-step-size=.01 --max-time-step-size=2592000 --max-time-step-divisions=20  --end-time=%d --enable-wa=false --ci-c=%f --cf-c=%f --ci=%f --cf=%f --ei=%f --ef=%f --lambda=%f --llambda=%f --srw=%f --srn=%f --s0w=%f --x0n=%f --k-c=%E --k=%E --phi-c=%f --phi=%f --fine-layer-bottom=%f " % (flowwa,i,T*year,cfc,cfc,cia,cfa,Ef,Ef,lambdaa,Lambdaa,Srw,Srn,S0w,X0n,Kc,Ka,phic,phia,h)
+        bashd[i]="%s --output-dir=vtk/vtk-%05d --wa-vtk-time-steps-file=writetimes.DATA --initial-time-step-size=.01 --max-time-step-size=2592000 --max-time-step-divisions=20  --end-time=%d --enable-wa=true --tch=%E --beta=%E --eta=%E --ci-c=%f --cf-c=%f --ci=%f --cf=%f --ei=%f --ef=%f --lambda=%f --llambda=%f --srw=%f --srn=%f --s0w=%f --x0n=%f --k-c=%E --k=%E --phi-c=%f --phi=%f --fine-layer-bottom=%f " % (flowwa,i,T*year,tch,1e15,0,cfc,cfc,cia,cfa,Ef,Ef,lambdaa,Lambdaa,Srw,Srn,S0w,X0n,Kc,Ka,phic,phia,h)
     else:
         bashd[i]="%s --output-dir=vtk/vtk-%05d --wa-vtk-time-steps-file=writetimes.DATA --initial-time-step-size=.01 --max-time-step-size=2592000 --max-time-step-divisions=20  --end-time=%d --enable-wa=true --tch=%E --beta=%E --eta=%E --ci-c=%f --cf-c=%f --ci=%f --cf=%f --ei=%f --ef=%f --lambda=%f --llambda=%f --srw=%f --srn=%f --s0w=%f --x0n=%f --k-c=%E --k=%E --phi-c=%f --phi=%f --fine-layer-bottom=%f " % (flowwa,i,T*year,tch,b1*P[i-1][2]**b2,-n1*P[i-1][2]+n2,P[i-1][0],cfc,cia,cfa,Ei,Ef,lambdaa,Lambdaa,Srw,Srn,S0w,X0n,P[i-1][1],Ka,phic,phia,h)
 bashd[11]="%s --output-dir=vtk/vtk-%05d --wa-vtk-time-steps-file=writetimes.DATA --initial-time-step-size=.01 --max-time-step-size=86400 --max-time-step-divisions=20  --end-time=%d --enable-wa=true --tch=%E --beta=%E --eta=%E --ci-c=%f --cf-c=%f --ci=%f --cf=%f --ei=%f --ef=%f --lambda=%f --llambda=%f --srw=%f --srn=%f --s0w=%f --x0n=%f --k-c=%E --k=%E --phi-c=%f --phi=%f --fine-layer-bottom=%f " % (flowwa,11,T*year,tch,b1*P[10][2]**b2,-n1*P[10][2]+n2,P[10][0],cfc,cia,cfa,Ei,Ef,lambdaa,Lambdaa,Srw,Srn,S0w,X0n,P[10][1],Ka,phic,phia,h)
