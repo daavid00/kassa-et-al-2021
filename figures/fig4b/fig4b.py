@@ -49,7 +49,7 @@ b1=1e9              #Dynamic parameter (capillary pressure) [-]
 b2=1.8              #Dynamic parameter (capillary pressure) [-]
 n1=4.999e5          #Dynamic parameter (relative permeability) [-]
 n2=50.              #Dynamic parameter (relative permeability) [-]
-nx=500              #Number of cells [-]
+nx=640              #Number of cells [-]
 dx=2.5              #Length of a grid cell [m]
 T=365               #Total simulation time [d]
 dt=73.              #Time step to print the results [d]
@@ -141,7 +141,7 @@ for jj in range(20):
 list_of_lines[99] = "277.0  1  0.0  %E  0.0 /\n" % (muw/cp)
 list_of_lines[102] = "277.0  1  0.0  %E  0.0 /\n" % (mun/cp)
 list_of_lines[110] = "%f %f 0 /\n" % (rhon, rhow)
-list_of_lines[115] = "%d*%d /\n" % (nx,nx*2.)
+list_of_lines[115] = "%d*1200 /\n" % nx
 list_of_lines[119] = "%d*1 /\n" % nx
 list_of_lines[123] = "%d*0 /\n" % nx
 list_of_lines[133] = "'PROD01' 'PROD' %d 1 1* 'WATER' 0.15/\n" % nx
@@ -201,8 +201,8 @@ for i in range(ii):
         snd=row
     a_file.close()
     Ca[i]= (H[i][0]*mun)/(H[i][1]*H[i][2]*ci)
-    xin[i]=len(sni[tuple([sni>1e-3])])-.5
-    xdyn[i]=len(snd[tuple([snd>1e-3])])-.5
+    xin[i]=(nx-len(sni[tuple([sni<1e-12])])-.5)*dx
+    xdyn[i]=(nx-len(snd[tuple([snd<1e-12])])-.5)*dx
     sfld[i]=(xin[i]-xdyn[i])/xin[i]
 
 #Check that all different simulations finished (the number of output files should be the same)
@@ -231,7 +231,7 @@ plt.plot(Ca[36:39], sfld[36:39], color=[0,0,0], linewidth=lw, linestyle="--", ma
 plt.plot(Ca[39:42], sfld[39:42], color=[1,0,0], linewidth=lw, linestyle="--", marker="^", label="K (C=10$^{-4}$)")
 plt.plot(Ca[42:45], sfld[42:45], color=[0,0,1], linewidth=lw, linestyle="--", marker="^", label="$\phi$ (C=10$^{-4}$)")
 plt.xlim([1e-6,3e-4])
-plt.ylim([-.01,1])
+plt.ylim([-.001,0.05])
 plt.xscale('log')
 plt.xlabel('Ca [-]')
 plt.ylabel('SFLD [-]')

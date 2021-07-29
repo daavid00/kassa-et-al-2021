@@ -49,7 +49,7 @@ b1=1e9              #Dynamic parameter (capillary pressure) [-]
 b2=1.8              #Dynamic parameter (capillary pressure) [-]
 n1=4.999e5          #Dynamic parameter (relative permeability) [-]
 n2=50.              #Dynamic parameter (relative permeability) [-]
-nx=500              #Number of cells [-]
+nx=640              #Number of cells [-]
 dx=2.5              #Length of a grid cell [m]
 T=365               #Total simulation time [d]
 dt=73.              #Time step to print the results [d]
@@ -66,7 +66,7 @@ day=86400           #[s]
 atm=101325          #[Pa]
 
 #Define the cases for the static states
-N = 4
+N = 2
 P = []
 a = []
 a.append(Ei)
@@ -75,14 +75,6 @@ P.append(a)
 a = []
 a.append(Ef)
 a.append(ci)
-P.append(a)
-a = []
-a.append(Ei)
-a.append(cf)
-P.append(a)
-a = []
-a.append(Ef)
-a.append(cf)
 P.append(a)
 
 #Create variables used in the simulations
@@ -124,7 +116,7 @@ list_of_lines[70] = "%d*%f /\n" % (nx,(K/(milli*darcy)))
 list_of_lines[99] = "277.0  1  0.0  %E  0.0 /\n" % (muw/cp)
 list_of_lines[102] = "277.0  1  0.0  %E  0.0 /\n" % (mun/cp)
 list_of_lines[110] = "%f %f 0 /\n" % (rhon, rhow)
-list_of_lines[115] = "%d*%d /\n" % (nx,nx*2.)
+list_of_lines[115] = "%d*1200 /\n" % nx
 list_of_lines[119] = "%d*1 /\n" % nx
 list_of_lines[123] = "%d*0 /\n" % nx
 list_of_lines[133] = "'PROD01' 'PROD' %d 1 1* 'WATER' 0.15/\n" % nx
@@ -160,7 +152,7 @@ for i in range(M):
     bashi[i+N]="%s WACASES/WACASE-%05d.DATA --output-dir=vtk/vtk-%05d --enable-vtk-output=true --enable-ecl-output=false  --initial-time-step-in-days=0.0001 --solver-max-restarts=20 --solver-max-time-step-in-days=1. --enable-wa=true --beta=%E --eta=%E --ei=%f --ef=%f --ci=%E --cf=%E --lambda=%f --llambda=%f --srw=%f" % (flowpath,i+N,i+N,1e16,-n1*C[i]+n2,Ei,Ef,ci,ci,lambdaa,Lambdaa,Srw)
 
 #Create the .bash file and run the simulations
-bash=bashi[0]+" & "+bashi[1]+" & "+bashi[2]+" & "+bashi[3]+" & "+bashi[4]+" & "+bashi[5]+" & "+bashi[6]+" & "+bashi[7]+" & "+bashi[8]+" & wait\n"
+bash=bashi[0]+" & "+bashi[1]+" & "+bashi[2]+" & "+bashi[3]+" & "+bashi[4]+" & "+bashi[5]+" & "+bashi[6]+" & wait\n"
 a_file = open("fig3c.bash", "w")
 a_file.writelines(bash)
 a_file.close()
@@ -188,13 +180,11 @@ plt.rc('font', size=12)
 axes=plt.subplot(1, 1, 1)
 plt.plot(X, Sn[0][:], color=[1,.6,.6], linewidth=lw, linestyle="-", label="Initial-wetting k$_r$, Initial-wetting P$_c$")
 plt.plot(X, Sn[1][:], color=[.6,.9,.9], linewidth=lw, linestyle="-", label="Final-wetting k$_r$, Initial-wetting P$_c$")
-plt.plot(X, Sn[2][:], color=[.6,.9,.5], linewidth=lw, linestyle="-", label="Initial-wetting k$_r$, Final-wetting P$_c$")
-plt.plot(X, Sn[3][:], color=[.8,.8,1], linewidth=lw, linestyle="-", label="Final-wetting k$_r$, Final-wetting P$_c$")
-plt.plot(X, Sn[4][:], color=[0,0,0], linewidth=lw, linestyle=":", label=r"Dynamic k$_r$ (C=10$^{-5}$)")
-plt.plot(X, Sn[5][:], color=[1,.5,0], linewidth=lw, linestyle="--", label=r"Dynamic k$_r$ (C=2.5$\times 10^{-5}$)")
-plt.plot(X, Sn[6][:], color=[1,.5,.9], linewidth=lw, linestyle=":", label=r"Dynamic k$_r$ (C=5$\times 10^{-5}$)")
-plt.plot(X, Sn[7][:], color=[.61,.61,.61], linewidth=lw, linestyle="--", label=r"Dynamic k$_r$ (C=7.5$\times 10^{-5}$)")
-plt.plot(X, Sn[8][:], color=[0,.4,0], linewidth=lw, linestyle=":", label=r"Dynamic k$_r$ (C=10$^{-4}$)")
+plt.plot(X, Sn[2][:], color=[0,0,0], linewidth=lw, linestyle=":", label=r"Dynamic k$_r$ (C=10$^{-5}$)")
+plt.plot(X, Sn[3][:], color=[1,.5,0], linewidth=lw, linestyle="--", label=r"Dynamic k$_r$ (C=2.5$\times 10^{-5}$)")
+plt.plot(X, Sn[4][:], color=[1,.5,.9], linewidth=lw, linestyle=":", label=r"Dynamic k$_r$ (C=5$\times 10^{-5}$)")
+plt.plot(X, Sn[5][:], color=[.61,.61,.61], linewidth=lw, linestyle="--", label=r"Dynamic k$_r$ (C=7.5$\times 10^{-5}$)")
+plt.plot(X, Sn[6][:], color=[0,.4,0], linewidth=lw, linestyle=":", label=r"Dynamic k$_r$ (C=10$^{-4}$)")
 plt.xlim([0,L])
 plt.ylim([0,0.425])
 plt.xlabel('x [m]')

@@ -117,7 +117,7 @@ os.system('rm -r vtk & wait')
 os.system('mkdir vtk')
 for i in range(N):
     os.system('mkdir vtk/vtk-%05d & wait' % i)
-    bashi[i]="%s --output-dir=vtk/vtk-%05d --wa-vtk-time-steps-file=writetimes.DATA --initial-time-step-size=.01 --max-time-step-size=2764800 --max-time-step-divisions=20  --end-time=%d --enable-wa=false --ci-c=%f --cf-c=%f --ci=%f --cf=%f --ei=%f --ef=%f --lambda=%f --llambda=%f --srw=%f --srn=%f --s0w=%f --x0n=%f --k-c=%E --k=%E --phi-c=%f --phi=%f --fine-layer-bottom=%f " % (flowwa,i,T*year,cfc,cfc,cia,cfa,P[i][0],P[i][0],lambdaa,Lambdaa,Srw,Srn,S0w,X0n,P[i][1],Ka,phic,phia,h)
+    bashi[i]="%s --output-dir=vtk/vtk-%05d --wa-vtk-time-steps-file=writetimes.DATA --initial-time-step-size=.01 --max-time-step-size=2764800 --max-time-step-divisions=20  --end-time=%d --enable-wa=true --beta=%E --eta=%E --ci-c=%f --cf-c=%f --ci=%f --cf=%f --ei=%f --ef=%f --lambda=%f --llambda=%f --srw=%f --srn=%f --s0w=%f --x0n=%f --k-c=%E --k=%E --phi-c=%f --phi=%f --fine-layer-bottom=%f " % (flowwa,i,T*year,1e15,0,cfc,cfc,cia,cfa,P[i][0],P[i][0],lambdaa,Lambdaa,Srw,Srn,S0w,X0n,P[i][1],Ka,phic,phia,h)
 
 #Create the .bash file and run the simulations
 bash=bashi[0]+" & "+bashi[1]+" & "+bashi[2]+" & "+bashi[3]+" & "+bashi[4]+" & "+bashi[5]+" & wait\n"

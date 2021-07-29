@@ -49,7 +49,7 @@ b1=1e9              #Dynamic parameter (capillary pressure) [-]
 b2=1.8              #Dynamic parameter (capillary pressure) [-]
 n1=4.999e5          #Dynamic parameter (relative permeability) [-]
 n2=50.              #Dynamic parameter (relative permeability) [-]
-nx=500              #Number of cells [-]
+nx=640              #Number of cells [-]
 dx=2.5              #Length of a grid cell [m]
 T=365               #Total simulation time [d]
 dt=73.              #Time step to print the results [d]
@@ -116,7 +116,7 @@ list_of_lines[70] = "%d*%f /\n" % (nx,(K/(milli*darcy)))
 list_of_lines[99] = "277.0  1  0.0  %E  0.0 /\n" % (muw/cp)
 list_of_lines[102] = "277.0  1  0.0  %E  0.0 /\n" % (mun/cp)
 list_of_lines[110] = "%f %f 0 /\n" % (rhon, rhow)
-list_of_lines[115] = "%d*%d /\n" % (nx,nx*2.)
+list_of_lines[115] = "%d*1200 /\n" % nx
 list_of_lines[119] = "%d*1 /\n" % nx
 list_of_lines[123] = "%d*0 /\n" % nx
 list_of_lines[133] = "'PROD01' 'PROD' %d 1 1* 'WATER' 0.15/\n" % nx
@@ -152,7 +152,7 @@ for i in range(M):
     bashi[i+N]="%s WACASES/WACASE-%05d.DATA --output-dir=vtk/vtk-%05d --enable-vtk-output=true --enable-ecl-output=false  --initial-time-step-in-days=0.0001 --solver-max-restarts=20 --solver-max-time-step-in-days=1. --enable-wa=true --beta=%E --eta=%E --ei=%f --ef=%f --ci=%E --cf=%E --lambda=%f --llambda=%f --srw=%f" % (flowpath,i+N,i+N,b1*C[i]**b2,-n1*C[i]+n2,Ei,Ef,ci,cf,lambdaa,Lambdaa,Srw)
 
 #Create the .bash file and run the simulations
-bash=bashi[0]+" & "+bashi[1]+" & "+bashi[2]+" & "+bashi[3]+" & "+bashi[4]+" & "+bashi[5]+" & "+bashi[6]+" & "+bashi[7]+" & "+bashi[8]+" & wait\n"
+bash=bashi[0]+" & "+bashi[1]+" & "+bashi[2]+" & "+bashi[3]+" & "+bashi[4]+" & "+bashi[5]+" & "+bashi[6]+" & wait\n"
 a_file = open("fig3d.bash", "w")
 a_file.writelines(bash)
 a_file.close()
