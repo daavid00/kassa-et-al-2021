@@ -28,9 +28,9 @@ and 'flow' from opm-simulators (see/run the bash file).
 executable respectively.
 
 ## Running the scripts
-* From the terminal, e.g., for fig7:
+* From the terminal, e.g., for fig8:
 
-`python3 fig7.py`
+`python3 fig8.py`
 
 ## Paper
 * [A] Kassa, A.M., Gasda, S.E., Landa-Marbán, D., Sandve, T.H., Kumar, K., 2021.
