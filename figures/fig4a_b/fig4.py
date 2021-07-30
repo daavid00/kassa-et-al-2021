@@ -20,7 +20,7 @@
 #}
 
 #Set the full path to the flow executable
-flowpath='~/github-opm/wettability/opm-simulators/build-cmake/bin/flow'
+flowpath='~/kassa-et-al-2021/opm-simulators/build-cmake/bin/flow'
 
 #Import python dependencies
 import numpy as np
