@@ -201,9 +201,21 @@ for i in range(ii):
         snd=row
     a_file.close()
     Ca[i]= (H[i][0]*mun)/(H[i][1]*H[i][2]*ci)
-    xin[i]=(nx-len(sni[tuple([sni<1e-12])])-.5)*dx
-    xdyn[i]=(nx-len(snd[tuple([snd<1e-12])])-.5)*dx
-    sfld[i]=(xin[i]-xdyn[i])/xin[i]
+    k=-1
+    for j in range(nx):
+        if sni[k]>1e-4:
+            break
+        else:
+            xin[i] += 1.
+            k = k -1
+    k=-1
+    for j in range(nx):
+        if snd[k]>1e-4:
+            break
+        else:
+            xdyn[i] += 1.
+            k = k -1
+    sfld[i]=((nx-xin[i]-.5)*dx-(nx-xdyn[i]-.5)*dx)/((nx-xin[i]-.5)*dx)
 
 #Check that all different simulations finished (the number of output files should be the same)
 print(Oki)
@@ -231,7 +243,7 @@ plt.plot(Ca[36:39], sfld[36:39], color=[0,0,0], linewidth=lw, linestyle="--", ma
 plt.plot(Ca[39:42], sfld[39:42], color=[1,0,0], linewidth=lw, linestyle="--", marker="^", label="K (C=10$^{-4}$)")
 plt.plot(Ca[42:45], sfld[42:45], color=[0,0,1], linewidth=lw, linestyle="--", marker="^", label="$\phi$ (C=10$^{-4}$)")
 plt.xlim([1e-6,3e-4])
-plt.ylim([-.001,0.05])
+plt.ylim([-.001,0.08])
 plt.xscale('log')
 plt.xlabel('Ca [-]')
 plt.ylabel('SFLD [-]')
