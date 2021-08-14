@@ -34,7 +34,7 @@ executable respectively.
 
 ## Paper
 * [A] Kassa, A.M., Gasda, S.E., Landa-Marbán, D., Sandve, T.H., Kumar, K., 2021.
-The role of time-dependent wettability alteration in geological co2 storage.
+Field-scale impacts of long-term wettability alteration in geological CO2 storage.
 
 ## Contact
 David Landa-Marbán (dmar@norceresearch.no).
