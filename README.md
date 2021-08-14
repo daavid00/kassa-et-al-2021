@@ -35,6 +35,7 @@ executable respectively.
 ## Paper
 * [A] Kassa, A.M., Gasda, S.E., Landa-Marbán, D., Sandve, T.H., Kumar, K., 2021.
 Field-scale impacts of long-term wettability alteration in geological CO2 storage.
+Submitted. http://dx.doi.org/10.13140/RG.2.2.13585.97125.
 
 ## Contact
 David Landa-Marbán (dmar@norceresearch.no).
