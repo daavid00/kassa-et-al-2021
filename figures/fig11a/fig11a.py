@@ -77,12 +77,12 @@ yco2 = []
 tco2 = []
 mco2 = []
 
-#First run the simulations for fig9a, then copy the produced folder 'data-for-fig11a' here
-CO2ref.append(np.loadtxt('data-for-fig11a/wa-fig9a-co2-00000.csv', delimiter=','))
-ttref.append(np.loadtxt('data-for-fig11a/wa-fig9a-time-00000.csv', delimiter=','))
+#First run the simulations for fig10a, then copy the produced folder 'data-for-fig11a' here
+CO2ref.append(np.loadtxt('data-for-fig11a/wa-fig10a-co2-00000.csv', delimiter=','))
+ttref.append(np.loadtxt('data-for-fig11a/wa-fig10a-time-00000.csv', delimiter=','))
 for i in range(N):
-    CO2.append(np.loadtxt('data-for-fig11a/wa-fig9a-co2-%05d.csv' % (i+1), delimiter=','))
-    tt.append(np.loadtxt('data-for-fig11a/wa-fig9a-time-%05d.csv' % (i+1), delimiter=','))
+    CO2.append(np.loadtxt('data-for-fig11a/wa-fig10a-co2-%05d.csv' % (i+1), delimiter=','))
+    tt.append(np.loadtxt('data-for-fig11a/wa-fig10a-time-%05d.csv' % (i+1), delimiter=','))
 
 #Define the scaling functions
 def timehat(X, a0, a1):
